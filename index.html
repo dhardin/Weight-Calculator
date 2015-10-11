@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta charset="utf-8" />
+    <title>Weight Calculator</title>
+    <!-- Third Party Style Sheets -->
+    <link rel="stylesheet" type="text/css" href="lib/foundation/css/foundation.css" />
+    <!-- Third Party JavaScript -->
+    <script src="lib/jquery.js"></script>
+</head>
+
+<body>
+    <h4>Using Olympic Bar</h4>
+    <fieldset class="switch" tabindex="0">
+        <input id="bar" type="checkbox" checked>
+        <label for="bar"></label>
+    </fieldset>
+    <h4>Load both sides</h4>
+    <fieldset class="switch" tabindex="0">
+        <input id="split" type="checkbox" checked>
+        <label for="split"></label>
+    </fieldset>
+    <h4>Weight:</h4>
+    <input id="weight" type="number" />
+    <br/>
+    <h4>Weights Needed:</h4>
+    <div id="weights"></div>
+    <script type="text/javascript">
+    var availableWeights = [],
+        neededWeights = [];
+
+    function getWeightsNeeded(weight, weightsArr) {
+        while (weight > 0) {
+            neededWeights.push(returnLargestWeight(weight, weightsArr));
+            weight -= neededWeights[neededWeights.length - 1];
+            if (neededWeights[neededWeights.length - 1] == 0) {
+                return;
+            }
+        }
+    }
+
+    function returnLargestWeight(weight, weightsArr) {
+        var largestWeight = 0,
+            i, weightIndex;
+        weightsArr = weightsArr || [45, 35, 25, 10, 5, 2.5];
+        for (i = 0; i < weightsArr.length; i++) {
+            if (weight >= weightsArr[i] && weightsArr[i] > largestWeight) {
+                largestWeight = weightsArr[i];
+                weightIndex = i;
+            }
+        }
+        weightsArr.splice(weightIndex, 1);
+        return largestWeight;
+    }
+
+    function onInputChange() {
+        var modWeight = 0,
+            i, html = '',
+            arrLength;
+        neededWeights = [];
+        $('#weights').html('');
+        if (!$('#bar').is(':checked') && $('#split').is(':checked')) {
+            $('#split').click();
+        }
+        html += ' < div class = "pagination" >
+            < ul class = "pagination" > '; modWeight += $('#
+        bar ').is(': checked ') ? 45 : 0; if ($('#
+        split ').is(': checked ')) { html += ' < li class = "" > < a > x2 < /a></li > '; getWeightsNeeded(($('#
+        weight ').val() - modWeight) * 0.5); getWeightsNeeded(($('#
+        weight ').val() - modWeight) * 0.5); } else { getWeightsNeeded($('#
+        weight ').val() - modWeight); } arrLength = neededWeights.length * ($('#
+        split ').is(': checked ') ? .5 : 1); for (i = 0; i < arrLength;
+        i++) {
+        html += '<li class="current"><a>' + neededWeights[i] + '</a></li>';
+    }
+    html += '</ul></div>';
+    $('#weights').html(html);
+    }
+    $('#weight').on('keyup', onInputChange);
+    $('#bar').on('change', onInputChange);
+    $('#split').on('change', onInputChange);
+    </script>
+</body>
+
+</html>
