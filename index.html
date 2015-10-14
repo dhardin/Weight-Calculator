@@ -74,15 +74,15 @@
             $('#split').click();
         }
         html += '<div class = "pagination"><ul class = "pagination">';
-        modWeight += $('#bar ').is(': checked ') ? 45 : 0;
-        if ($('#split ').is(': checked ')) {
-            html += ' < li class = "" > < a > x2 < /a></li > ';
+        modWeight += $('#bar ').is(':checked') ? 45 : 0;
+        if ($('#split ').is(':checked')) {
+            html += '<li class = ""><a> x2 </a></li>';
             getWeightsNeeded(($('#weight ').val() - modWeight) * 0.5);
             getWeightsNeeded(($('#weight ').val() - modWeight) * 0.5);
         } else {
             getWeightsNeeded($('#weight ').val() - modWeight);
         }
-        arrLength = neededWeights.length * ($('#split ').is(': checked ') ? .5 : 1);
+        arrLength = neededWeights.length * ($('#split').is(':checked') ? 0.5 : 1);
         for (i = 0; i < arrLength; i++) {
             html += '<li class="current"><a>' + neededWeights[i] + '</a></li>';
         }
