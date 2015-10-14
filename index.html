@@ -12,21 +12,30 @@
 </head>
 
 <body>
-    <h4>Using Olympic Bar</h4>
-    <fieldset class="switch" tabindex="0">
-        <input id="bar" type="checkbox" checked>
-        <label for="bar"></label>
-    </fieldset>
-    <h4>Load both sides</h4>
-    <fieldset class="switch" tabindex="0">
-        <input id="split" type="checkbox" checked>
-        <label for="split"></label>
-    </fieldset>
-    <h4>Weight:</h4>
-    <input id="weight" type="number" />
-    <br/>
-    <h4>Weights Needed:</h4>
-    <div id="weights"></div>
+    <div class="row">
+        <div class="small-12 medium-6 columns">
+            <h4>Using Olympic Bar</h4>
+            <fieldset class="switch" tabindex="0">
+                <input id="bar" type="checkbox" checked>
+                <label for="bar"></label>
+            </fieldset>
+        </div>
+        <div class="small-12 medium-6 columns">
+            <h4>Load both sides</h4>
+            <fieldset class="switch" tabindex="0">
+                <input id="split" type="checkbox" checked>
+                <label for="split"></label>
+            </fieldset>
+        </div>
+        <div class="small-12 columns">
+            <h4>Weight:</h4>
+            <input id="weight" type="number" />
+        </div>
+        <div class="small-12 columns">
+            <h4>Weights Needed:</h4>
+            <div id="weights"></div>
+        </div>
+    </div>
     <script type="text/javascript">
     var availableWeights = [],
         neededWeights = [];
@@ -64,19 +73,21 @@
         if (!$('#bar').is(':checked') && $('#split').is(':checked')) {
             $('#split').click();
         }
-        html += ' < div class = "pagination" >
-            < ul class = "pagination" > '; modWeight += $('#
-        bar ').is(': checked ') ? 45 : 0; if ($('#
-        split ').is(': checked ')) { html += ' < li class = "" > < a > x2 < /a></li > '; getWeightsNeeded(($('#
-        weight ').val() - modWeight) * 0.5); getWeightsNeeded(($('#
-        weight ').val() - modWeight) * 0.5); } else { getWeightsNeeded($('#
-        weight ').val() - modWeight); } arrLength = neededWeights.length * ($('#
-        split ').is(': checked ') ? .5 : 1); for (i = 0; i < arrLength;
-        i++) {
-        html += '<li class="current"><a>' + neededWeights[i] + '</a></li>';
-    }
-    html += '</ul></div>';
-    $('#weights').html(html);
+        html += '<div class = "pagination"><ul class = "pagination">';
+        modWeight += $('#bar ').is(': checked ') ? 45 : 0;
+        if ($('#split ').is(': checked ')) {
+            html += ' < li class = "" > < a > x2 < /a></li > ';
+            getWeightsNeeded(($('#weight ').val() - modWeight) * 0.5);
+            getWeightsNeeded(($('#weight ').val() - modWeight) * 0.5);
+        } else {
+            getWeightsNeeded($('#weight ').val() - modWeight);
+        }
+        arrLength = neededWeights.length * ($('#split ').is(': checked ') ? .5 : 1);
+        for (i = 0; i < arrLength; i++) {
+            html += '<li class="current"><a>' + neededWeights[i] + '</a></li>';
+        }
+        html += '</ul></div>';
+        $('#weights').html(html);
     }
     $('#weight').on('keyup', onInputChange);
     $('#bar').on('change', onInputChange);
